@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# nyc_streets
+# nyc_streets <img src="man/figures/nycstreets.png" align="right" width="360">
 
 ## Installation
 
@@ -39,16 +39,5 @@ nyc_streets_sf
 nyc_streets_sf |>
   ggplot() +
   geom_sf(linewidth = 0.1) +
-  theme_void()
-```
-
-```{r, fig.width=5, fig.height=5}
-nyc_streets_sf |>
-  filter(
-    boroughcod == 1,
-    st_coordinates(st_centroid(geometry))[, "Y"] >= 250000
-  ) |>
-  ggplot() +
-  geom_sf() +
   theme_void()
 ```

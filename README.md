@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# nyc_streets
+# nyc_streets <img src="man/figures/nycstreets.png" align="right" width="360">
 
 ## Installation
 
@@ -68,16 +68,3 @@ nyc_streets_sf |>
 ```
 
 <img src="man/figures/README-unnamed-chunk-2-1.png" width="100%" />
-
-``` r
-nyc_streets_sf |>
-  filter(
-    boroughcod == 1,
-    st_coordinates(st_centroid(geometry))[, "Y"] >= 250000
-  ) |>
-  ggplot() +
-  geom_sf() +
-  theme_void()
-```
-
-<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
