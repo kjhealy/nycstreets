@@ -1,0 +1,21 @@
+Package: nycstreets
+Title: NYC Street Centerline Data
+Version: 0.0.1.9000
+Authors@R:
+    person("Kieran", "Healy", , "kjhealy@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-9114-981X"))
+Description: Provides an sf object containing the New York City street
+    centerline dataset from NYC Open Data.
+License: MIT + file LICENSE
+URL: https://github.com/kjhealy/nycstreets
+BugReports: https://github.com/kjhealy/nycstreets/issues
+Depends:
+    R (>= 4.1.0)
+Suggests:
+    sf (>= 1.0.0),
+    tibble (>= 3.0.0)
+Encoding: UTF-8
+LazyData: true
+LazyDataCompression: xz
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.3

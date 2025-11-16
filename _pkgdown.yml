@@ -1,0 +1,32 @@
+authors:
+  Kieran Healy:
+    href: http://kieranhealy.org
+
+url: https://kjhealy.github.io/nycstreets/
+template:
+  bootstrap: 5
+  bslib:
+    base_font: {google: "IBM Plex Sans"}
+    heading_font: {google: "IBM Plex Sans"}
+    code_font: {google: "IBM Plex Mono"}
+
+reference:
+  - title: "Datasets"
+    desc: NYC Street Centerlines
+    contents:
+      - nyc_streets_sf
+
+navbar:
+  right:
+   - icon: fa-github
+     href: https://github.com/kjhealy/nycstreets
+
+figures:
+  dev: grDevices::png
+  dpi: 600
+  dev.args: []
+  fig.ext: png
+  fig.width: 7.2916667
+  fig.height: ~
+  fig.retina: 2
+  fig.asp: 1.618

@@ -1,0 +1,9 @@
+^nycstreets\.Rproj$
+^\.Rproj\.user$
+^data-raw$
+^LICENSE\.md$
+llms.txt
+^README\.Rmd$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

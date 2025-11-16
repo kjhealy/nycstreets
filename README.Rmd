@@ -1,0 +1,54 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  dpi = 600,
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# nyc_streets
+
+## Installation
+
+You can install the development version of nycstreets from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("kjhealy/nycstreets")
+```
+
+## The dataset
+
+```{r example}
+library(tidyverse)
+library(sf)
+library(nycstreets)
+nyc_streets_sf
+```
+
+
+```{r, fig.width=10, fig.height=10}
+nyc_streets_sf |>
+  ggplot() +
+  geom_sf(linewidth = 0.1) +
+  theme_void()
+```
+
+```{r, fig.width=5, fig.height=5}
+nyc_streets_sf |>
+  filter(
+    boroughcod == 1,
+    st_coordinates(st_centroid(geometry))[, "Y"] >= 250000
+  ) |>
+  ggplot() +
+  geom_sf() +
+  theme_void()
+```
