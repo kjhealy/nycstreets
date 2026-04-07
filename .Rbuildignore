@@ -7,3 +7,4 @@ llms.txt
 ^_pkgdown\.yml$
 ^docs$
 ^pkgdown$
+^\.github$
