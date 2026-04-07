@@ -14,7 +14,9 @@ knitr::opts_chunk$set(
 )
 ```
 
-# nyc_streets <img src="man/figures/nycstreets.png" align="right" width="360">
+# nycstreets <img src="man/figures/nycstreets.png" align="right" width="360">
+
+Provides an sf object containing the New York City street centerline dataset from NYC Open Data.
 
 ## Installation
 
