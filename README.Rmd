@@ -16,6 +16,12 @@ knitr::opts_chunk$set(
 
 # nycstreets <img src="man/figures/nycstreets.png" align="right" width="360">
 
+<!-- badges: start -->
+[![R-CMD-check](https://github.com/kjhealy/nycstreets/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/kjhealy/nycstreets/actions/workflows/R-CMD-check.yaml)
+[![R-universe version](https://kjhealy.r-universe.dev/nycstreets/badges/version)](https://kjhealy.r-universe.dev/nycstreets)
+<!-- badges: end -->
+
+
 Provides an sf object containing the New York City street centerline dataset from NYC Open Data.
 
 ## Installation
@@ -26,6 +32,17 @@ You can install the development version of nycstreets from [GitHub](https://gith
 # install.packages("pak")
 pak::pak("kjhealy/nycstreets")
 ```
+
+Alternatively, install this package from my [r-universe](https://kjhealy.r-universe.dev):
+
+```r
+install.packages(
+  "nycstreets",
+  repos = c("https://kjhealy.r-universe.dev", "https://cloud.r-project.org")
+)
+```
+
+Including `https://cloud.r-project.org` ensures dependencies on CRAN are resolved automatically.
 
 ## The dataset
 
