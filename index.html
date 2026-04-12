@@ -47,6 +47,8 @@
   <main id="main" class="col-md-9"><div class="section level1">
 <div class="page-header"><h1 id="nycstreets-">nycstreets <img src="reference/figures/nycstreets.png" align="right" width="360"><a class="anchor" aria-label="anchor" href="#nycstreets-"></a>
 </h1></div>
+<!-- badges: start -->
+
 <p>Provides an sf object containing the New York City street centerline dataset from NYC Open Data.</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -55,19 +57,26 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"kjhealy/nycstreets"</span><span class="op">)</span></span></code></pre></div>
+<p>Alternatively, install this package from my <a href="https://kjhealy.r-universe.dev" class="external-link">r-universe</a>:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span></span>
+<span>  <span class="st">"nycstreets"</span>,</span>
+<span>  repos <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"https://kjhealy.r-universe.dev"</span>, <span class="st">"https://cloud.r-project.org"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
+<p>Including <code>https://cloud.r-project.org</code> ensures dependencies on CRAN are resolved automatically.</p>
 </div>
 <div class="section level2">
 <h2 id="the-dataset">The dataset<a class="anchor" aria-label="anchor" href="#the-dataset"></a>
 </h2>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org" class="external-link">tidyverse</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; ── Attaching core tidyverse packages ──────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──</span></span>
-<span><span class="co">#&gt; ✔ dplyr     1.2.0     ✔ readr     2.2.0</span></span>
+<span><span class="co">#&gt; ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──</span></span>
+<span><span class="co">#&gt; ✔ dplyr     1.2.1     ✔ readr     2.2.0</span></span>
 <span><span class="co">#&gt; ✔ forcats   1.0.1     ✔ stringr   1.6.0</span></span>
 <span><span class="co">#&gt; ✔ ggplot2   4.0.2     ✔ tibble    3.3.1</span></span>
 <span><span class="co">#&gt; ✔ lubridate 1.9.5     ✔ tidyr     1.3.2</span></span>
-<span><span class="co">#&gt; ✔ purrr     1.2.1     </span></span>
-<span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
+<span><span class="co">#&gt; ✔ purrr     1.2.1</span></span>
+<span><span class="co">#&gt; ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──</span></span>
 <span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
 <span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span>
 <span><span class="co">#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</span></span>
@@ -81,28 +90,128 @@
 <span><span class="co">#&gt; Bounding box:  xmin: 913351.6 ymin: 120769.2 xmax: 1067379 ymax: 272691.1</span></span>
 <span><span class="co">#&gt; Projected CRS: NAD83 / New York Long Island (ftUS)</span></span>
 <span><span class="co">#&gt; First 10 features:</span></span>
-<span><span class="co">#&gt;   physicalid l_low_hn l_high_hn r_low_hn r_high_hn l_zip r_zip status bike_lane</span></span>
-<span><span class="co">#&gt; 1      46810      901       999      900       998 11230 11230      2      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   trafdir rw_type pre_type post_type objectid  fcc l_blockfac r_blockfac</span></span>
-<span><span class="co">#&gt; 1      FT       1      AVE      &lt;NA&gt;    42563 &lt;NA&gt; 1822608708 1822600714</span></span>
-<span><span class="co">#&gt;   avgtravtim rwjurisdic nominaldir accessible nonped boroughcod borough_in</span></span>
-<span><span class="co">#&gt; 1         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          3       &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   seglocstat sandist_in lsubsect rsubsect continuous twisted_pa posted_spe</span></span>
-<span><span class="co">#&gt; 1          X       &lt;NA&gt;       6E       6E       &lt;NA&gt;          N         25</span></span>
-<span><span class="co">#&gt;   segmentlen streetwidt streetwi_2 special_di fire_lane date_creat   time_creat</span></span>
-<span><span class="co">#&gt; 1   260.1442         34       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29 00:00:00.000</span></span>
-<span><span class="co">#&gt;   date_modif   time_modif within_bnd truck_rout collection from_level</span></span>
-<span><span class="co">#&gt; 1 2020-08-28 20:49:50.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;         13</span></span>
-<span><span class="co">#&gt;   to_level_c   b5sc snow_prior joinid bphys_id carto_disp number_tra number_par</span></span>
-<span><span class="co">#&gt; 1         13 314280          C   &lt;NA&gt;       NA       &lt;NA&gt;          2          2</span></span>
-<span><span class="co">#&gt;   number_tot pre_modifi pre_direct post_direc post_modif full_stree bike_trafd</span></span>
-<span><span class="co">#&gt; 1          4       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;      AVE N       &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   shape_leng                             globalid segment_ty segment_2</span></span>
-<span><span class="co">#&gt; 1    104.315 cedc2dde-7e8b-4427-af4c-c7fe5174b2c7       &lt;NA&gt;      &lt;NA&gt;</span></span>
-<span><span class="co">#&gt;   street_nam stname_lab                       geometry</span></span>
-<span><span class="co">#&gt; 1          N      AVE N MULTILINESTRING ((993887.4 ...</span></span>
-<span><span class="co">#&gt;  [ reached 'max' / getOption("max.print") -- omitted 9 rows ]</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<span><span class="co">#&gt;    physicalid l_low_hn l_high_hn r_low_hn r_high_hn l_zip r_zip status</span></span>
+<span><span class="co">#&gt; 1       46810      901       999      900       998 11230 11230      2</span></span>
+<span><span class="co">#&gt; 2       86757     2501      2599     2500      2598 10469 10469      2</span></span>
+<span><span class="co">#&gt; 3       84282   22-001    22-099   22-000    22-098 11105 11105      2</span></span>
+<span><span class="co">#&gt; 4       79741       79       107       78       100 10013 10013      2</span></span>
+<span><span class="co">#&gt; 5      184200        0         0       74        86 10306 10306      2</span></span>
+<span><span class="co">#&gt; 6      191409        2        98        1        99 10023 10023      2</span></span>
+<span><span class="co">#&gt; 7      170796     &lt;NA&gt;      &lt;NA&gt;     &lt;NA&gt;      &lt;NA&gt; 10458 10458      2</span></span>
+<span><span class="co">#&gt; 8       31380  113-001   113-099  113-000   113-098 11429 11429      2</span></span>
+<span><span class="co">#&gt; 9       10217  161-001   161-099  161-000   161-098 11365 11365      2</span></span>
+<span><span class="co">#&gt; 10      16336   22-001    22-025   22-000    22-026 11691 11691      2</span></span>
+<span><span class="co">#&gt;    bike_lane trafdir rw_type pre_type post_type objectid  fcc l_blockfac</span></span>
+<span><span class="co">#&gt; 1       &lt;NA&gt;      FT       1      AVE      &lt;NA&gt;    42563 &lt;NA&gt; 1822608708</span></span>
+<span><span class="co">#&gt; 2       &lt;NA&gt;      TW       1     &lt;NA&gt;       AVE    78537 &lt;NA&gt; 1522607532</span></span>
+<span><span class="co">#&gt; 3       &lt;NA&gt;      TF       1     &lt;NA&gt;        ST    76298 &lt;NA&gt;  102261264</span></span>
+<span><span class="co">#&gt; 4       &lt;NA&gt;      FT       1     &lt;NA&gt;        ST    72173 &lt;NA&gt; 1222605034</span></span>
+<span><span class="co">#&gt; 5       &lt;NA&gt;      TW       1     &lt;NA&gt;       AVE   115877 &lt;NA&gt; 1722613316</span></span>
+<span><span class="co">#&gt; 6       &lt;NA&gt;      FT       1     &lt;NA&gt;        ST   118754 &lt;NA&gt; 1222600676</span></span>
+<span><span class="co">#&gt; 7       &lt;NA&gt;      NV       6     &lt;NA&gt;      PATH   110562 &lt;NA&gt; 1522610431</span></span>
+<span><span class="co">#&gt; 8       &lt;NA&gt;      TW       1     &lt;NA&gt;        ST    28373 &lt;NA&gt;   72264340</span></span>
+<span><span class="co">#&gt; 9       &lt;NA&gt;      TW       1     &lt;NA&gt;       AVE     9109 &lt;NA&gt;   82262164</span></span>
+<span><span class="co">#&gt; 10      &lt;NA&gt;      TW       1     &lt;NA&gt;       AVE    14570 &lt;NA&gt;   12262996</span></span>
+<span><span class="co">#&gt;    r_blockfac avgtravtim rwjurisdic nominaldir accessible nonped boroughcod</span></span>
+<span><span class="co">#&gt; 1  1822600714         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          3</span></span>
+<span><span class="co">#&gt; 2  1522608941         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          2</span></span>
+<span><span class="co">#&gt; 3   102265239         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          4</span></span>
+<span><span class="co">#&gt; 4  1222601248         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          1</span></span>
+<span><span class="co">#&gt; 5  1722609883         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          5</span></span>
+<span><span class="co">#&gt; 6  1222606129         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          1</span></span>
+<span><span class="co">#&gt; 7  1522601577         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          2</span></span>
+<span><span class="co">#&gt; 8    72268057         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          4</span></span>
+<span><span class="co">#&gt; 9    82261112         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          4</span></span>
+<span><span class="co">#&gt; 10   12263118         NA       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;   &lt;NA&gt;          4</span></span>
+<span><span class="co">#&gt;    borough_in seglocstat sandist_in lsubsect rsubsect continuous twisted_pa</span></span>
+<span><span class="co">#&gt; 1        &lt;NA&gt;          X       &lt;NA&gt;       6E       6E       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt; 2        &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       2C       2C       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt; 3        &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       2E       2E       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt; 4        &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       3B       3B       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt; 5        &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       1D       1D       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt; 6        &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       1A       1A       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt; 7        &lt;NA&gt;          H       &lt;NA&gt;     &lt;NA&gt;     &lt;NA&gt;       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt; 8        &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       4C       4C       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt; 9        &lt;NA&gt;          X       &lt;NA&gt;       2E       2E       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt; 10       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       3D       3D       &lt;NA&gt;          N</span></span>
+<span><span class="co">#&gt;    posted_spe segmentlen streetwidt streetwi_2 special_di fire_lane date_creat</span></span>
+<span><span class="co">#&gt; 1          25   260.1442         34       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29</span></span>
+<span><span class="co">#&gt; 2          25   889.7205         32       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29</span></span>
+<span><span class="co">#&gt; 3          25   689.1536         32       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29</span></span>
+<span><span class="co">#&gt; 4          25   298.8967         34       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29</span></span>
+<span><span class="co">#&gt; 5          25   415.1483         25       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29</span></span>
+<span><span class="co">#&gt; 6          25   665.2489         50       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29</span></span>
+<span><span class="co">#&gt; 7          NA   359.6573         12       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2015-12-15</span></span>
+<span><span class="co">#&gt; 8          25   519.6650         30       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29</span></span>
+<span><span class="co">#&gt; 9          25   262.1672         40       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29</span></span>
+<span><span class="co">#&gt; 10         25   295.9581         24       &lt;NA&gt;       &lt;NA&gt;      &lt;NA&gt; 2007-11-29</span></span>
+<span><span class="co">#&gt;      time_creat date_modif   time_modif within_bnd truck_rout collection</span></span>
+<span><span class="co">#&gt; 1  00:00:00.000 2020-08-28 20:49:50.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2  00:00:00.000 2024-04-10 13:15:28.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3  00:00:00.000 2017-03-17 09:30:01.000       &lt;NA&gt;       &lt;NA&gt;          F</span></span>
+<span><span class="co">#&gt; 4  00:00:00.000 2017-03-17 10:04:49.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5  00:00:00.000 2025-10-24 14:30:55.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6  00:00:00.000 2021-04-06 07:50:19.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7  11:04:01.000 2015-12-22 00:00:00.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 8  00:00:00.000 2024-04-10 13:15:28.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 9  00:00:00.000 2020-08-28 20:49:50.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 10 00:00:00.000 2024-04-10 13:15:28.000       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;    from_level to_level_c   b5sc snow_prior joinid bphys_id carto_disp</span></span>
+<span><span class="co">#&gt; 1          13         13 314280          C   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2          13         13 240620          S   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3          13         13 410640          S   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4          13         13 124400          S   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5          13         13 520590          H   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6          13         13 134970          C   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7          13         13 200476       &lt;NA&gt;   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 8          13         13 426340          S   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 9          13         13 436400          C   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 10         13         13 456590          S   &lt;NA&gt;       NA       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;    number_tra number_par number_tot pre_modifi pre_direct post_direc post_modif</span></span>
+<span><span class="co">#&gt; 1           2          2          4       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 2           2          2          4       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 3           1          2          3       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 4           1          2          3       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 5           2          1          3       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 6           2          2          4       &lt;NA&gt;          W       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 7           1          0          1       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 8           2          2          4       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 9           2          1          3       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt; 10          2          2          4       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;       &lt;NA&gt;</span></span>
+<span><span class="co">#&gt;                 full_stree bike_trafd shape_leng</span></span>
+<span><span class="co">#&gt; 1                    AVE N       &lt;NA&gt;   104.3150</span></span>
+<span><span class="co">#&gt; 2                 HONE AVE       &lt;NA&gt;   359.4566</span></span>
+<span><span class="co">#&gt; 3                    48 ST       &lt;NA&gt;   277.5332</span></span>
+<span><span class="co">#&gt; 4                LAIGHT ST       &lt;NA&gt;   120.0458</span></span>
+<span><span class="co">#&gt; 5                BROOK AVE       &lt;NA&gt;    90.2888</span></span>
+<span><span class="co">#&gt; 6                 W  60 ST       &lt;NA&gt;   267.5995</span></span>
+<span><span class="co">#&gt; 7  FORDHAM UNIVERSITY PATH       &lt;NA&gt;   221.1833</span></span>
+<span><span class="co">#&gt; 8                   210 ST       &lt;NA&gt;   209.3626</span></span>
+<span><span class="co">#&gt; 9       BOOTH MEMORIAL AVE       &lt;NA&gt;   105.3209</span></span>
+<span><span class="co">#&gt; 10             NAMEOKE AVE       &lt;NA&gt;   118.6830</span></span>
+<span><span class="co">#&gt;                                globalid segment_ty segment_2         street_nam</span></span>
+<span><span class="co">#&gt; 1  cedc2dde-7e8b-4427-af4c-c7fe5174b2c7       &lt;NA&gt;      &lt;NA&gt;                  N</span></span>
+<span><span class="co">#&gt; 2  9c163e85-23ad-418a-a54c-40c8eef802e5       &lt;NA&gt;      &lt;NA&gt;               HONE</span></span>
+<span><span class="co">#&gt; 3  fdccf94f-201f-4312-a96d-0c26d0fa7cfd       &lt;NA&gt;      &lt;NA&gt;                 48</span></span>
+<span><span class="co">#&gt; 4  bcbbb800-b963-45bf-804e-42f5ada6c207       &lt;NA&gt;      &lt;NA&gt;             LAIGHT</span></span>
+<span><span class="co">#&gt; 5  d7f8c5d8-637b-4122-950f-faf2206c8561       &lt;NA&gt;      &lt;NA&gt;              BROOK</span></span>
+<span><span class="co">#&gt; 6  27fcb089-c93b-41fa-bd6e-9700b811cb13       &lt;NA&gt;      &lt;NA&gt;                 60</span></span>
+<span><span class="co">#&gt; 7  fd57d250-48c4-4cb1-ad58-067ebfa185b6       &lt;NA&gt;      &lt;NA&gt; FORDHAM UNIVERSITY</span></span>
+<span><span class="co">#&gt; 8  7505f297-28f8-4deb-90ed-623321c7ce58       &lt;NA&gt;      &lt;NA&gt;                210</span></span>
+<span><span class="co">#&gt; 9  d0e23276-a779-4fff-b47c-c345f4ea4c36       &lt;NA&gt;      &lt;NA&gt;     BOOTH MEMORIAL</span></span>
+<span><span class="co">#&gt; 10 2504359f-bc51-4eab-b943-d5342ccbad45       &lt;NA&gt;      &lt;NA&gt;            NAMEOKE</span></span>
+<span><span class="co">#&gt;                 stname_lab                       geometry</span></span>
+<span><span class="co">#&gt; 1                    AVE N MULTILINESTRING ((993887.4 ...</span></span>
+<span><span class="co">#&gt; 2                 HONE AVE MULTILINESTRING ((1023581 2...</span></span>
+<span><span class="co">#&gt; 3                    48 ST MULTILINESTRING ((1011659 2...</span></span>
+<span><span class="co">#&gt; 4                LAIGHT ST MULTILINESTRING ((981322.2 ...</span></span>
+<span><span class="co">#&gt; 5                BROOK AVE MULTILINESTRING ((950457.2 ...</span></span>
+<span><span class="co">#&gt; 6                  W 60 ST MULTILINESTRING ((989175.6 ...</span></span>
+<span><span class="co">#&gt; 7  FORDHAM UNIVERSITY PATH MULTILINESTRING ((1015623 2...</span></span>
+<span><span class="co">#&gt; 8                   210 ST MULTILINESTRING ((1054777 1...</span></span>
+<span><span class="co">#&gt; 9       BOOTH MEMORIAL AVE MULTILINESTRING ((1037648 2...</span></span>
+<span><span class="co">#&gt; 10             NAMEOKE AVE MULTILINESTRING ((1052518 1...</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">nyc_streets_sf</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">ggplot</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu">geom_sf</span><span class="op">(</span>linewidth <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span> <span class="op">+</span></span>
@@ -142,7 +251,13 @@
 </ul>
 </div>
 
-
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/kjhealy/nycstreets/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/kjhealy/nycstreets/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://kjhealy.r-universe.dev/nycstreets" class="external-link"><img src="https://kjhealy.r-universe.dev/nycstreets/badges/version" alt="R-universe version"></a></li>
+</ul>
+</div>
 
   </aside>
 </div>
