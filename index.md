@@ -9,6 +9,7 @@ You can install the development version of nycstreets from
 [GitHub](https://github.com/) with:
 
 ``` r
+
 # install.packages("pak")
 pak::pak("kjhealy/nycstreets")
 ```
@@ -17,6 +18,7 @@ Alternatively, install this package from my
 [r-universe](https://kjhealy.r-universe.dev):
 
 ``` r
+
 install.packages(
   "nycstreets",
   repos = c("https://kjhealy.r-universe.dev", "https://cloud.r-project.org")
@@ -29,6 +31,7 @@ resolved automatically.
 ## The dataset
 
 ``` r
+
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.2.1     ✔ readr     2.2.0
@@ -174,6 +177,7 @@ nyc_streets_sf
 ```
 
 ``` r
+
 nyc_streets_sf |>
   ggplot() +
   geom_sf(linewidth = 0.1) +
